@@ -28,7 +28,7 @@ public class nodoLG {
         this.liga = liga;
     }
 
-    public boolean isSwitche() {
+    public boolean getSwitche() {
         return switche;
     }
 
