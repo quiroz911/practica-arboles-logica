@@ -1,5 +1,6 @@
 package com.rectangulo;
 
+import java.sql.SQLOutput;
 import java.util.Stack;
 
 public class arbolNario {
@@ -13,39 +14,7 @@ public class arbolNario {
         raiz = x;
     }
 
-   /* public arbolNario(String hilera) {
-        int n = hilera.length();
-        char[] s;
-        s = hilera.toCharArray();
-        Stack<nodoLG> pila = new Stack<nodoLG>();
-        nodoLG x = new nodoLG(null);
-        nodoLG ultimo = x;
-        for (int i = 1; i < n-1; i++) {
-            if (esAtomo(s[i])) {
-                ultimo.setSwitche(false);
-                ultimo.setDato(s[i]);
-                if (i == 1) {
-                    raiz = ultimo;
-                }
-            }
-            if (s[i]==','){
-                x = new nodoLG(null);
-                ultimo.setLiga(x);
-                ultimo = x;
-            }
-            if(s[i]=='('){
-                pila.push(ultimo);
-                x = new nodoLG(null);
-                ultimo.setSwitche(true);
-                ultimo.setDato(x);
-                ultimo = x;
-            }
-            if(s[i]==')'){
-                ultimo = pila.pop();
-            }
-        }
-    }
-*/
+    //metodo que recibe una hilera y la convierte en arbol n-ario
     public arbolNario(String s){
         int n, i;
         nodoLG primero, ultimo, x;
@@ -87,6 +56,35 @@ public class arbolNario {
             }
         }
         raiz=primero;
+    }
+
+    public void imprimirNario(nodoLG a){
+        System.out.print(a.getDato()+"(");
+        nodoLG p = a.getLiga();
+        int i = 0;
+        while(p!=null){
+            i++;
+            if(i!=1){
+                System.out.print(",");
+            }
+            if(p.getSwitche()){
+
+                imprimirNario((nodoLG) p.getDato());
+            }
+            else{
+                System.out.print(p.getDato());
+            }
+            p = p.getLiga();
+        }
+        System.out.print(")");
+    }
+
+    //metodo que invoca imprimirNario y le agrega los parentesis mas externos y la raiz original
+    public void escribirNario(){
+        System.out.print("(");
+        imprimirNario(raiz);
+        System.out.print(")");
+        System.out.println();
     }
 
     public nodoLG getRaiz() {
