@@ -10,14 +10,13 @@ public class nodoDoble {
     }
 
     public nodoDoble() {
-        this.dato = dato;
     }
 
     public Object getDato() {
         return dato;
     }
 
-    public void setDato(String dato) {
+    public void setDato(Object dato) {
         this.dato = dato;
     }
 
