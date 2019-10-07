@@ -6,6 +6,7 @@ public class arbolBinario {
 
     private nodoDoble raiz;
     nodoDoble padre; //variable global que indica el padre de un dato. Se le asigna valor por medio del metodo padre()
+    int gradoArbol;
 
     public nodoDoble getRaiz() {
         return raiz;
@@ -111,6 +112,67 @@ public class arbolBinario {
                 padre((char)padre.getDato(), raiz);
             }
             System.out.print(padre.getDato()+",");
+        }
+    }
+    public int gradoPadre(){
+        nodoDoble p = raiz;
+        int cont=0;
+        if(p.getLigai()!=null){
+            p = p.getLigai();
+            while(p!=null){
+                p = p.getLigad();
+                cont++;
+            }
+        }
+        return cont;
+    }
+
+    public int gradoDato(char dato){
+        int cont=0;
+        nodoDoble p = new nodoDoble();
+        //se halla el padre del dato, si el dato es el padre, se llama el metodo de grado de padre
+        if(dato == (char) raiz.getDato()){
+            return gradoPadre();
+        }
+        padre(dato, raiz);
+        //Se busca donde esta el dato a partir del padre
+        if(dato == (char) padre.getLigai().getDato()){
+            p = padre.getLigai();
+        }
+        else{
+            p = padre.getLigad();
+        }
+        //se avanza por la izquierda si se puede
+        nodoDoble q = p.getLigai();
+        if(q!=null){
+            cont++; //se empieza a avanzar por la derecha hasta llegar a nulo aumentando cada vez el contador
+            q = q.getLigad();
+        }
+        return cont;
+    }
+
+    public int gradoArbol(nodoDoble r){
+        if(r.getLigai()!=null && r.getLigad()==null){
+            gradoArbol = gradoArbol(r.getLigai());
+            return gradoArbol;
+        }
+        if(r.getLigad()!=null && r.getLigai()==null){
+            gradoArbol = gradoArbol(r.getLigad());
+            return gradoArbol;
+        }
+        if(r.getLigai()==null && r.getLigad()==null){
+            return 0;
+        }
+        gradoArbol = mayorEntre(gradoArbol(r.getLigai()),gradoArbol(r.getLigad()));
+        return gradoArbol;
+    }
+
+    public int mayorEntre(int x, int y){
+        if(x>y){
+            return x;
+        }
+        else{
+            return y;
         }
     }
 
